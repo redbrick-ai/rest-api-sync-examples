@@ -1,0 +1,25 @@
+{
+  "name": "rest-api-sync-examples",
+  "version": "1.0.0",
+  "description": "The purpose of this Repository is to give examples of how you write your own \"brick\" to interface with a RedBrick AI Pipeline.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redbrick-ai/rest-api-sync-examples.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/redbrick-ai/rest-api-sync-examples/issues"
+  },
+  "homepage": "https://github.com/redbrick-ai/rest-api-sync-examples#readme",
+  "devDependencies": {
+    "serverless": "^2.29.0",
+    "serverless-python-requirements": "^5.1.0",
+    "serverless-wsgi": "^1.7.6"
+  }
+}
