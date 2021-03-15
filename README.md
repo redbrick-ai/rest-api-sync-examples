@@ -42,3 +42,8 @@ The pipeline configuration for a stage would look like this:
   "outputTaxonomyVersion": "<taxonomyVersion>"
 }
 ```
+
+## To deploy this example
+
+npm run install
+sls deploy -v -s prod

@@ -58,8 +58,9 @@ class RequestSchema(Schema):
 
 class ResponseSchema(Schema):
     labels = fields.List(fields.Nested(LabelSchema))
-    routingCode = fields.Integer()
-    customSubName = fields.String()
+    routing_code = fields.Integer()
+    custom_sub_name = fields.String()
+    status_code = fields.Integer(required=True)
 
 
 @app.route("/")
@@ -103,3 +104,40 @@ def example1():
         }
         labels_output.append(new_label)
     return {"labels": labels_output, "status_code": 200}
+
+
+@app.route("/example2", methods=["POST"])
+def example2():
+
+    input_data = request.data.decode("utf-8")
+    input_data = json.loads(input_data)
+    print(input_data)
+    assert input_data.get("input_type") == "IMAGE_BBOX"
+    assert input_data.get("expected_type") == "IMAGE_BBOX"
+
+    labels = input_data.get("labels")
+
+    # filter out small boxes
+    labels = list(
+        filter(
+            lambda x: x["bbox2d"]["wnorm"] > 0.001 and x["bbox2d"]["hnorm"] > 0.001,
+            labels,
+        )
+    )
+
+    unique_categories = set()
+
+    for label in labels:
+        unique_categories.add(label["category"][0][1])
+
+    #
+    routing_code = 0
+    if len(unique_categories) < 5:
+        routing_code = 1
+
+    return {
+        "labels": labels,
+        "status_code": 200,
+        "routing_code": routing_code,
+        "custom_sub_name": "Min_bbox_size",
+    }
